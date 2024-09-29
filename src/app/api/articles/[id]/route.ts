@@ -1,0 +1,84 @@
+import { articles } from "@/Utils/data";
+import { NextRequest, NextResponse } from "next/server";
+import { UpdateArticleDto } from "@/Utils/dtos";
+import prisma from "@/Utils/db";
+
+interface Props {
+    params: { id: string }
+}
+
+/**
+ * @method GET
+ * @route ~/api/articles/:id
+ * @desc Get Single Article by id
+ * @access public 
+ */
+
+export async function GET(request: NextRequest, { params }: Props) {
+    try {
+        const article = await prisma.article.findUnique({ where: { id: parseInt(params.id) } });
+        if (!article) {
+            return NextResponse.json({ message: 'article not found' }, { status: 404 })
+        }
+        return NextResponse.json(article, { status: 200 })
+    } catch (error) {
+        return NextResponse.json(
+            { message: "internal server error" },
+            { status: 500 })
+    }
+}
+/**
+ * @method PUT
+ * @route ~/api/articles/:id
+ * @desc Update Article
+ * @access public 
+ */
+
+export async function PUT(request: NextRequest, { params }: Props) {
+    const article = await prisma.article.findUnique({
+        where: { id: parseInt(params.id) }
+    });
+
+    if (!article) {
+        return NextResponse.json({ 'message': 'article not found' }, { status: 404 })
+    }
+
+    const body = (await request.json()) as UpdateArticleDto;
+    await prisma.article.update({
+        where: { id: parseInt(params.id) },
+        data: {
+            title: body.title,
+            description: body.description
+        }
+    })
+    return NextResponse.json({ 'message': 'article updated' }, { status: 200 })
+}
+
+/**
+ * @method DELETE
+ * @route ~/api/articles/:id
+ * @desc Delete Article
+ * @access public 
+ */
+
+export async function DELETE(request: NextRequest, { params }: Props) {
+    try {
+        const article = await prisma.article.findUnique({
+            where: { id: parseInt(params.id) }
+        });
+
+        if (!article) {
+            return NextResponse.json({ 'message': 'article not found' }, { status: 404 })
+        }
+
+        await prisma.article.delete({
+            where: { id: parseInt(params.id) }
+        })
+        return NextResponse.json({ 'message': 'article deleted' }, { status: 200 })
+    } catch (error) {
+        return NextResponse.json(
+            { message: "internal server error" },
+            { status: 500 }
+        )
+    }
+}
