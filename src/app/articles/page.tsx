@@ -1,32 +1,34 @@
 import ArticleItem from "@/components/articles/ArticleItem";
 import Pagination from "@/components/articles/Pagination";
 import SearchArticleInput from "@/components/articles/SearchArticleInput";
-import {Article} from '@/Utils/types'
-import { cache } from "react";
+import {Article} from '@prisma/client'
+import { getArticles, getArticlesCount } from "@/apiCalls/articleApiCalls";
+import { ARTICLE_PER_PAGE } from "@/Utils/constants";
 
-const ArticlePage = async() => {
+interface ArticlesPageProps {
+  searchParams: {pageNumber: string}
+}
 
-  // delay 10s
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+const ArticlePage = async({searchParams}: ArticlesPageProps) => {
+  
+  // // delay 10s
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
+  
+  const {pageNumber} = searchParams;
+  const articles: Article[] = await getArticles(pageNumber);
+  const count = await getArticlesCount();
 
-  const response = await fetch(
-    'https://jsonplaceholder.org/posts'
-  );
-
-  if(!response.ok) {
-    throw new Error('Failed to fetch articles');
-  }
-  const articles: Article[] = await response.json();
+  const pages = Math.ceil(count / ARTICLE_PER_PAGE);
 
   return (
     <section className="container m-auto px-5 py-5">
       <SearchArticleInput />
       <div className="flex text-center justify-center flex-wrap gap-7">
-        {articles.slice(0,6).map(article => 
-          <ArticleItem article={article} key={article.id} />
-        )}
+        {articles.map(item => 
+          <ArticleItem article={item} key={item.id} />
+        )};
       </div>
-      <Pagination />
+      <Pagination pageNumber={parseInt(pageNumber)} route="/articles" pages={pages} />
     </section>
   )
 }

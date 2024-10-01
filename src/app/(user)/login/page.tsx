@@ -1,7 +1,11 @@
 import LoginForm from "./LoginForm"
+import { redirect } from 'next/navigation'
+import { cookies } from 'next/headers'
 
+const LoginPage = () => {
+  const token = cookies().get("jwtToken")?.value;
+  if(token) redirect("/")
 
-const Login = () => {
   return (
     <section className='fix-height container m-auto px-7 flex items-center justify-center'>
       <div className='m-auto bg-white rounded-lg p-5 w-full lg:w-1/2 md:w-2/3'>
@@ -12,4 +16,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default LoginPage
