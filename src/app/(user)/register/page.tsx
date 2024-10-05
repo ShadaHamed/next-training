@@ -1,11 +1,12 @@
 import React from 'react'
 import RegisterForm from './RegisterForm'
-import { redirect } from 'next/navigation'
-import { cookies } from 'next/headers'
+// import { redirect } from 'next/navigation'
+// import { cookies } from 'next/headers'
 
 const RegisterPage = () => {
-  const token = cookies().get("jwtToken")?.value;
-  if(token) redirect("/")
+  //if we don't use middleware we will write this
+  // const token = cookies().get("jwtToken")?.value;
+  // if(token) redirect("/")
 
   return (
     <section className='fix-height container m-5 px-7 flex items-center justify-center'>

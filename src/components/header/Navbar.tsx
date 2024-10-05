@@ -8,7 +8,11 @@ import { useState } from 'react';
 import { IoMdClose } from "react-icons/io";
 import { usePathname } from 'next/navigation'
 
-const Navbar = () => {
+interface NavbarProps {
+  isAdmin: boolean;
+}
+
+const Navbar = ({isAdmin}: NavbarProps) => {
   const[toggle, setToggle] = useState(false)
   const pathname = usePathname()
   console.log(pathname, 'pathname')
@@ -29,8 +33,9 @@ const Navbar = () => {
             <Link onClick={() => setToggle(false)} className={styles.navLink} href='/'>Home</Link>
             <Link onClick={() => setToggle(false)} className={styles.navLink} href='/articles?pageNumber=1'>Articles</Link>
             <Link onClick={() => setToggle(false)} className={styles.navLink} href='/about'>About</Link>
+            {isAdmin && 
             <Link onClick={() => setToggle(false)} className={styles.navLink} href='/admin'>Admin Dashboard</Link>
-
+}
           </ul>
         </div>
       </nav>

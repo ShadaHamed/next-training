@@ -4,6 +4,7 @@ import SearchArticleInput from "@/components/articles/SearchArticleInput";
 import {Article} from '@prisma/client'
 import { getArticles, getArticlesCount } from "@/apiCalls/articleApiCalls";
 import { ARTICLE_PER_PAGE } from "@/Utils/constants";
+import prisma from "@/Utils/db";
 
 interface ArticlesPageProps {
   searchParams: {pageNumber: string}
@@ -16,7 +17,13 @@ const ArticlePage = async({searchParams}: ArticlesPageProps) => {
   
   const {pageNumber} = searchParams;
   const articles: Article[] = await getArticles(pageNumber);
-  const count = await getArticlesCount();
+  
+    //get the count from api
+  // const count = await getArticlesCount();
+
+  //get the count from prisma db directly insead of api
+  const count = await prisma.article.count();
+
 
   const pages = Math.ceil(count / ARTICLE_PER_PAGE);
 
