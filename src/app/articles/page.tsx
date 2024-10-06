@@ -6,8 +6,8 @@ import { cache } from "react";
 
 const ArticlePage = async() => {
 
-  // delay 10s
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  // // delay 10s
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
 
   const response = await fetch(
     'https://jsonplaceholder.org/posts'
