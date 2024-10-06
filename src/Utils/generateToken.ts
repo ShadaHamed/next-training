@@ -1,9 +1,9 @@
-import jwt from "jsonwebtoken";
-import { JWTPayload } from "@/Utils/types";
-import { serialize } from "cookie";
+import jwt from 'jsonwebtoken';
+import { JWTPayload } from './types';
+import { serialize } from 'cookie';
 
-//generate JWT token
-export function generateJWT(jwtPayload : JWTPayload) : string {
+// Genereate JWT Token
+export function generateJWT(jwtPayload: JWTPayload): string {
     const privateKey = process.env.JWT_SECRET as string;
 
     const token = jwt.sign(jwtPayload, privateKey, {
@@ -13,16 +13,16 @@ export function generateJWT(jwtPayload : JWTPayload) : string {
     return token;
 }
 
-//generate Cookie with JWT 
-export function setCookie(jwtPayload:JWTPayload):string {
+// Set Cookie with JWT
+export function setCookie(jwtPayload: JWTPayload): string {
     const token = generateJWT(jwtPayload);
 
-    const cookie = serialize('jwtToken', token, {
+    const cookie = serialize("jwtToken", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', //development= http, production= https
+        secure: process.env.NODE_ENV === 'production', // development=http, production= https
         sameSite: 'strict',
         path: '/',
-        maxAge: 60 * 60 * 24 * 30,  //30 days
+        maxAge: 60 * 60 * 24 * 30, // 30 days
     });
 
     return cookie;

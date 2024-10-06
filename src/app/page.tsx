@@ -1,5 +1,6 @@
-import Hero from "@/components/home/Hero"
+import Hero from "@/components/home/Hero";
 import WebHostingPlan from "@/components/home/WebHostingPlan";
+
 const HomePage = () => {
   return (
     <section>
@@ -16,4 +17,5 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+export default HomePage;
+
