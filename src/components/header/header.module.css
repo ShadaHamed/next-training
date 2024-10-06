@@ -1,5 +1,5 @@
-.header{
-    height:100px;
+.header {
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -8,40 +8,46 @@
     background-color: rgb(227, 225, 225);
     position: relative;
 }
-.navbar{
+
+.navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.menu{
-    font-size: 45px;
-    font-weight: bold;
-    color: #202121;
-    cursor: pointer;
-    display: none;
-}
-.logo{
+
+.logo {
     display: flex;
     align-items: center;
     font-size: 24px;
     font-weight: bold;
     color: rgb(176, 15, 176);
 }
-.navLinks{
-    margin-left: 30px;  
+
+.menu {
+    font-size: 40px;
+    font-weight: bold;
+    color: #202121;
+    cursor: pointer;
+    display: none;
 }
-.navLink{
+
+.navLinks {
+    margin-left: 30px;
+}
+
+.navLink {
     font-size: 20px;
     font-weight: 600;
     margin: 0 12px;
-
 }
-.right{
+
+.right {
     display: flex;
     align-items: center;
     gap: 10px;
 }
-.btn{
+
+.btn {
     cursor: pointer;
     background-color: blue;
     color: white;
@@ -52,21 +58,25 @@
     display: flex;
     align-items: center;
 }
-.btn:hover{
+
+.btn:hover {
     background-color: darkblue;
 }
-.navLink:hover{
+
+.navLink:hover {
     color: darkblue;
 }
 
-@media (max-width:1080px){
-    .logo{
+@media (max-width: 1080px) {
+    .logo {
         display: none;
     }
-    .menu{
+
+    .menu {
         display: block;
     }
-    .navLinksWrapper{
+
+    .navLinksWrapper {
         position: absolute;
         left: 0;
         top: 100%;
@@ -75,9 +85,9 @@
         transition: all .5s ease-in;
         z-index: 100;
         background-color: rgb(227, 225, 225);
-        clip-path: polygon(0 0, 100% 0%, 100% 0, 0 0);
-
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
     }
+
     .navLinks {
         padding-left: 30px;
         padding-bottom: 10px;
@@ -87,7 +97,8 @@
         align-items: flex-start;
         justify-content: center;
     }
-    .navLink{
+
+    .navLink {
         padding: 0;
         margin: 12px 0;
     }
