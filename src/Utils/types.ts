@@ -9,3 +9,5 @@ export type JWTPayload = {
 export type CommentWithUser = Comment & { user: User };
 
 export type SingleArticle = Article & { comments: CommentWithUser[] };
+
+export type SingleUser = User & { comments: CommentWithUser[] };
